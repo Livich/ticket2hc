@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Ticket To HipChat",
+  "short_name": "ticket2hc",
+  "description": "Paste current ticket ID to desired HipChat room",
+  "version": "0.1",
+  "author": "Sergiy Lilikovych",
+  
+   "content_security_policy": "script-src 'self' https://www.googleapis.com https://ssl.google-analytics.com; object-src 'self'",
+
+  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "browser_action":
+  {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Push current ticket ID to HipChat"
+  },
+
+  "icons":
+  {
+      "128": "images/icon.png"
+  },
+
+  "permissions": [
+    "activeTab", "*://support.namecheap.com/staff/*"
+  ]
+}

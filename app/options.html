@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Ticket To HipChat</title>
+		<link rel="stylesheet" type="text/css" href="css/options.css" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div id="logo">
+			<center>
+				<img src="images/icon.png" style="height:100px;width:100px;">
+				</img>
+			</center>
+		</div>
+		<div id="container">
+			<div id="options">
+				<div class="option">
+					<label for="tb_room_id">HipChat room ID</label><br>
+					<input type="text" id="tb_room_id" value="0">
+					<p>
+						Room ID to push ticket's IDs
+					</p>
+				</div>
+				<div class="option">
+					<label for="tb_room_id">HipChat auth token</label><br>
+					<input type="text" id="tb_auth_token" value="0">
+					<p>
+						Auth Token to send messages automatically. Create one in <tt>Account Settings &rarr; API Access</tt>.
+					</p>
+				</div>
+			</div>
+			<div id="buttons">
+				<button id="saveButton" class="btn">
+					Save
+				</button>
+
+				<button id="restoreButton" class="btn">
+					Reset
+				</button>
+			</div>
+		</div>
+
+		<div id="footer">
+			By Sergiy Lilikovych (<a href="https://github.com/Livich/" target="_blank">GitHub</a>)
+			<br>
+			Donate BTC: 1NGa4Ehwq496h3EADirchjPb27pUtzdSwW
+		</div>
+		
+		<script src="js/common.js"></script>
+		<script src="js/options.js"></script>
+	</body>
+</html>
