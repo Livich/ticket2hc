@@ -34,22 +34,50 @@ _gaq.push(['_trackPageview']);
 
 
 /*Main code*/
-function onInfo(info) {
+var INFO_MSG_POSTED = 0;
+
+var ERR_NOT_CONFIGURED = -1;
+var ERR_NETWORK = -2;
+var ERR_NO_TICKET_ID = -3;
+
+function onInfo(i) {
+    var  info = "";
+    switch(i){
+        case INFO_MSG_POSTED:
+            info = "Message posted";
+            break;
+        default:
+            info = "Success"
+    }
 	document.getElementById("result").innerHTML = '<span>'+info+'</span>';
 }
 
-function onError(s) {
-	document.getElementById("result").innerHTML = '<span class="error">'+s+'</span>';
+function onError(i) {
+   var  info = "";
+   switch(i){
+       case ERR_NOT_CONFIGURED:
+           info = "Please configure the extension first";
+           break;
+       case ERR_NETWORK:
+           info = "Network error";
+           break;
+       case ERR_NO_TICKET_ID:
+           info = "There is no ticket ID in page title";
+           break;
+        default:
+            info = "General error. Please refer to console output"
+   }
+	document.getElementById("result").innerHTML = '<span class="error">'+info+'</span>';
 }
 
-var notifyConfig = localStorage["room_id"] == undefined || localStorage["room_id"] == 0;
+var notifyConfig = localStorage["room_id"] === undefined || localStorage["room_id"] === 0;
 
 chrome.tabs.query({
 	'active' : true,
 	'currentWindow' : true
 }, function(tab) {
     if(notifyConfig){
-        onError("Please, configure the extension first");
+        onError(ERR_NOT_CONFIGURED);
         return;
     }
 
@@ -62,10 +90,10 @@ chrome.tabs.query({
         var tabTitle = tab[0].title;
         var ticketId = ticketRegex.exec(tabTitle);
         if (ticketId === null) {
-            onError("Ticket ID not found");
+            onError(ERR_NO_TICKET_ID);
             return;
         } else {
-            qwest.post('https://hc.namecheap.net/v2/room/' + localStorage["room_id"] + '/message',
+            qwest.post(localStorage["hc_host"]+'/v2/room/' + localStorage["room_id"] + '/message',
                 {message: ticketId[0]},
                 {
                     cache: true,
@@ -74,14 +102,17 @@ chrome.tabs.query({
                         'Authorization': 'Bearer ' + localStorage["auth_token"]
                     }
                 }).then(function (xhr, response) {
-                onInfo("OK");
+                onInfo(INFO_MSG_POSTED);
             })
                 .catch(function (e, xhr, response) {
-                    onError(e);
+                    onError(ERR_NETWORK);
+                    console.error(e);
                     return;
                 });
         }
     }catch (e){
-        onError(e);
+        onError();
+        console.error(e);
+        return;
     }
 });

@@ -7,24 +7,31 @@
 	<body>
 		<div id="logo">
 			<center>
-				<img src="images/icon.png" style="height:100px;width:100px;">
+				<img src="images/icon128.png" style="height:100px;width:100px;">
 				</img>
 			</center>
 		</div>
 		<div id="container">
 			<div id="options">
 				<div class="option">
+					<label for="tb_hc_host">HipChat server endpoint</label><br>
+					<input type="text" id="tb_hc_host" value="0">
+					<p>
+						E.g. <tt>https://hipchat.yourcompany.com</tt>.
+					</p>
+				</div>
+				<div class="option">
 					<label for="tb_room_id">HipChat room ID</label><br>
 					<input type="text" id="tb_room_id" value="0">
 					<p>
-						Room ID to push ticket's IDs
+						Room ID to push ticket IDs
 					</p>
 				</div>
 				<div class="option">
 					<label for="tb_room_id">HipChat auth token</label><br>
 					<input type="text" id="tb_auth_token" value="0">
 					<p>
-						Auth Token to send messages automatically. Create one in <tt>Account Settings &rarr; API Access</tt>.
+						HipChat auth token for unattended access to room. Create one in <tt>Account Settings &rarr; API Access</tt>.
 					</p>
 				</div>
 			</div>
